@@ -3,13 +3,27 @@ services:
   backend:
     build: 
       context: ./backend
-     
+    environment:
+      STORAGE: mysql
+      MYSQL_HOST: db
+      MYSQL_USER: projectopdracht
+      MYSQL_PWD: DitIsGoed!
+      MYSQL_DB: projectopdracht
+    networks: 
+      - backend
+
   frontend:
     image: nginx:latest
     volumes:
       - "./frontend:/usr/share/nginx/html:ro"
-    ports:
-      - "80:80"
+    labels:
+      - "traefik.http.routers.projectopdracht_frontend.rule=Host(`s129173.devops-ap.be`)"
+      - "traefik.http.routers.projectopdracht_frontend.tls=true"
+      - "traefik.http.routers.projectopdracht_frontend.tls.certresolver=letsencrypt"
+    networks: 
+      - proxy
+      - backend
+
   db:
     image: mysql
     environment:
@@ -20,6 +34,16 @@ services:
     volumes:
       - "db-volume:/var/lib/mysql"
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+    networks:
+      - backend
+
 volumes:
   db-volume:
+
+networks:
+  proxy:
+    external: true
+    name: traefik
+  backend:
+
 
