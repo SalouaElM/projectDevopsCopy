@@ -6,9 +6,9 @@ services:
     environment:
       STORAGE: mysql
       MYSQL_HOST: db
-      MYSQL_USER: projectopdracht
-      MYSQL_PWD: DitIsGoed!
-      MYSQL_DB: projectopdracht
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PWD: ${MYSQL_PWD}
+      MYSQL_DB: ${MYSQL_DB}
     networks: 
       - backend
 
@@ -27,10 +27,10 @@ services:
   db:
     image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: DitIsGoed!
-      MYSQL_DATABASE: projectopdracht
-      MYSQL_USER: projectopdracht
-      MYSQL_PASSWORD: DitIsGoed!
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PWD}
     volumes:
       - "db-volume:/var/lib/mysql"
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
