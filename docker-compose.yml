@@ -1,0 +1,14 @@
+version: "3"
+services:
+  backend:
+    build: 
+      context: ./backend
+
+  frontend:
+    image: nginx:latest
+    volumes:
+      - "./frontend:/usr/share/nginx/html:ro"
+    ports:
+      - "80:80"
+
+
