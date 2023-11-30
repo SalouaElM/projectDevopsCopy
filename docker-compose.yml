@@ -9,20 +9,24 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PWD: ${MYSQL_PWD}
       MYSQL_DB: ${MYSQL_DB}
+    labels:
+      - "traefik.http.routers.projectopdracht_backend.rule=Host(`s129173.devops-ap.be`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.projectopdracht_backend.tls=true"
+      - "traefik.http.routers.projectopdracht_backend.tls.certresolver=letsencrypt"
     networks: 
-      - backend
+      - proxy
+      - database
 
   frontend:
     image: nginx:latest
     volumes:
       - "./frontend:/usr/share/nginx/html:ro"
     labels:
-      - "traefik.http.routers.projectopdracht_frontend.rule=Host(`s129173.devops-ap.be`)"
+      - "traefik.http.routers.projectopdracht_frontend.rule=Host(`s129173.devops-ap.be`) && !PathPrefix(`/api`)"
       - "traefik.http.routers.projectopdracht_frontend.tls=true"
       - "traefik.http.routers.projectopdracht_frontend.tls.certresolver=letsencrypt"
     networks: 
       - proxy
-      - backend
 
   db:
     image: mysql
@@ -35,7 +39,7 @@ services:
       - "db-volume:/var/lib/mysql"
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
     networks:
-      - backend
+      - database
 
 volumes:
   db-volume:
@@ -44,6 +48,6 @@ networks:
   proxy:
     external: true
     name: traefik
-  backend:
+  database:
 
 
