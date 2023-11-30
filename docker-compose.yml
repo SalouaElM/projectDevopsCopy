@@ -3,12 +3,23 @@ services:
   backend:
     build: 
       context: ./backend
-
+     
   frontend:
     image: nginx:latest
     volumes:
       - "./frontend:/usr/share/nginx/html:ro"
     ports:
       - "80:80"
-
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: DitIsGoed!
+      MYSQL_DATABASE: projectopdracht
+      MYSQL_USER: projectopdracht
+      MYSQL_PASSWORD: DitIsGoed!
+    volumes:
+      - "db-volume:/var/lib/mysql"
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+volumes:
+  db-volume:
 
