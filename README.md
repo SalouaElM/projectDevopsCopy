@@ -1,3 +1,60 @@
+# Documentatie voor Todo Applicatie Installatie
+
+Deze documentatie beschrijft de stappen om de Todo applicatie op te zetten en te draaien op een lokale machine met behulp van Docker Compose. Zorg ervoor dat je de volgende stappen nauwkeurig volgt om de applicatie correct te configureren en te laten draaien.
+
+### Stap 1: Klonen van Git-repository
+
+Clone de Git-repository naar je lokale machine:
+
+```bash
+git clone <repository_url>
+cd <repository_directory>
+```
+
+### Stap 2: Configuratie van omgevingsvariabelen
+
+Kopieer het voorbeeld van de omgevingsvariabelen naar een nieuw bestand genaamd `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Bewerk het `.env`-bestand met behulp van een teksteditor en voeg de specifieke waarden toe voor de volgende variabelen:
+
+```bash
+MYSQL_USER=gebruikersnaam
+MYSQL_PWD=wachtwoord
+MYSQL_DB=databasenaam
+MYSQL_ROOT_PASSWORD=rootwachtwoord
+```
+
+Vervang `gebruikersnaam`, `wachtwoord`, `databasenaam` en `rootwachtwoord` door de relevante gegevens.
+
+### Stap 3: Opslaan van wijzigingen
+
+Sla de wijzigingen op in het `.env`-bestand en zorg ervoor dat dit bestand niet wordt gedeeld via versiebeheer of openbare repositories om veiligheidsredenen.
+
+### Stap 4: Vereisten
+
+Zorg ervoor dat de gebruiker Traefik op zijn machine heeft geïnstalleerd voordat je doorgaat naar de volgende stap.
+
+### Stap 5: Starten van de applicatie
+
+Voer het volgende commando uit om de Docker containers te starten:
+
+```bash
+docker-compose up -d
+```
+
+Dit zal de Todo applicatie opstarten en laten draaien op de lokale machine.
+
+### Opmerkingen:
+
+- Controleer of Traefik correct is geconfigureerd en actief is op je machine voordat je de applicatie start.
+- Gebruik de juiste Docker Compose-opdrachten als er specifieke vereisten zijn voor het beheer van de containers.
+
+Door deze stappen te volgen, zou de Todo applicatie moeten worden geïnstalleerd en draaien op je lokale omgeving. Zorg ervoor dat je alle vereisten nakijkt voordat je de applicatie start.
+
 # Projectopdracht
 
 Welkom bij het de repository voor de doorlopende opdracht van DevOps. 
